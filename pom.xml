@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>4.13.2</version>
 		</dependency>
 		<!-- to execute the Deploy Plugin -->
 		<dependency>
@@ -106,7 +106,7 @@
 								} catch(Exception e) {
 								println(" Error during deletion "+e.getMessage());
 								}
-								println(" Copy:"+sourcePath+" =>"+destinationPath);
+								println(" Copy:"+sourcePath+" =&gt;"+destinationPath);
 
 
 								def file = sourcePath.toFile();
