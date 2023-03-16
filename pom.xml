@@ -4,7 +4,7 @@
 	<artifactId>bonita-log</artifactId>
 	<version>2.8.2</version>
 	<properties>
-		<bonita.version>7.8.4</bonita.version>
+		<bonita.version>7.15.0</bonita.version>
 
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -106,7 +106,7 @@
 								} catch(Exception e) {
 								println(" Error during deletion "+e.getMessage());
 								}
-								println(" Copy:"+sourcePath+" =>"+destinationPath);
+								println(" Copy:"+sourcePath+" =&gt;"+destinationPath);
 
 
 								def file = sourcePath.toFile();
