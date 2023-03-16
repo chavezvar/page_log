@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
-			<version>1.1</version>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -106,7 +106,7 @@
 								} catch(Exception e) {
 								println(" Error during deletion "+e.getMessage());
 								}
-								println(" Copy:"+sourcePath+" =>"+destinationPath);
+								println(" Copy:"+sourcePath+" =&gt;"+destinationPath);
 
 
 								def file = sourcePath.toFile();
