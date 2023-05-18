@@ -105,6 +105,7 @@ public class LogAccess {
         }
 
         public String getCompleteFileName() {
+        	logger.info("getCompleteFileName() >>  LogAccess, return path: " + pathName + File.separatorChar + getFileName());
             return pathName + File.separatorChar + getFileName();
         }
 
@@ -127,6 +128,7 @@ public class LogAccess {
             logParameter.numberPerPage = Toolbox.getLong(jsonHash.get("numberperpage"), 100L);
             logParameter.brutResult = Toolbox.getBoolean(jsonHash.get("brutResult"), false);
             logParameter.fileName = (String) jsonHash.get("fileName");
+            logger.info("getInstanceFromJsonSt() >>  LogAccess: logParameter.fileName is "+ (String) jsonHash.get("fileName"));
             logParameter.pathName = (String) jsonHash.get("pathName");
             logParameter.analysisCompactBasedOnError = Toolbox.getBoolean(jsonHash.get("analysisCompactBasedOnError"), false);
 
@@ -250,10 +252,10 @@ public class LogAccess {
                 if (uniqPath.contains(logPath.folder.getAbsolutePath()))
                     continue;
                 uniqPath.add(logPath.folder.getAbsolutePath());
-                logger.info("LogAccess: listFiles=" + logPath.folder.getCanonicalPath());
+                logger.info("getFilesInfoLog() >> LogAccess: listFiles=" + logPath.folder.getCanonicalPath());
                 final File[] listOfFiles = logPath.folder.listFiles();
                 if (listOfFiles == null) {
-                    logger.info("LogAccess: no file under =" + logPath.folder.getCanonicalPath());
+                    logger.info("getFilesInfoLog() >> LogAccess: no file under =" + logPath.folder.getCanonicalPath());
                     continue;
                 }
 
@@ -268,7 +270,7 @@ public class LogAccess {
                         //                  bonita.log 
                         //  !!!!
                         if (name.startsWith("bonita-"))
-                            name = "bonita." + name.substring("bonita-".length());
+                            name = "bonita" + name.substring("bonita-".length());
 
                         final StringTokenizer st = new StringTokenizer(name, ".");
                         @SuppressWarnings("unused")
@@ -291,8 +293,7 @@ public class LogAccess {
                         listFiles.add(infoFile);
 
                         mapLogs.put(filedate, listFiles);
-                        // logger.info("Add in [" + filedate + "] :" +
-                        // listFiles);
+                        logger.info("getFilesInfoLog() >> Add in [" + filedate + "] :" + listFiles.toString());
                     }
                 }
 
@@ -370,6 +371,7 @@ public class LogAccess {
         long lineNumber = 0;
         try {
             if (logParameter.logInformation) {
+            	logger.info("LogAccess ");
                 logger.info("LogAccess.getLog : Start reading [" + logParameter.fileName + "=>" + logParameter.getCompleteFileName() + "] from Page[" + logParameter.pageNumber + "(" + logParameter.numberPerPage + ") Lines[" + logParameter.pageNumber * logParameter.numberPerPage + "-"
                         + (logParameter.pageNumber * logParameter.numberPerPage + logParameter.numberPerPage) + "]" + " filterError=" + logParameter.filterError + " fiterText[" + logParameter.filterText + "]");
             }
@@ -377,8 +379,9 @@ public class LogAccess {
             if (logParameter.getFileName() == null || logParameter.getFileName().length() == 0) {
                 // we need the CurrentLogFile
                 final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                logInformation.logFileName = "bonita." + sdf.format(new Date()) + ".log";
-                logger.fine("LogAccess.getLog : Search Current Log based on file [" + logInformation.logFileName + "] or [server.log]");
+                //logInformation.logFileName = "bonita." + sdf.format(new Date()) + ".log";
+                logInformation.logFileName = "bonita.log";
+                logger.info("getLog() >> LogAccess.getLog : Search Current Log based on file [" + logInformation.logFileName + "] or [server.log]");
 
                 List<LogRessource> listPath = getLogPath();
                 for (LogRessource logRessource : listPath) {
@@ -394,7 +397,7 @@ public class LogAccess {
                     }
 
                 }
-                logger.info("LogAccess.getLog : Found Current Log based on[" + logInformation.logFileName + "] ?  [" + logInformation.completeLogFileName + "]");
+                logger.info("getLog() >> LogAccess.getLog : Found Current Log based on[" + logInformation.logFileName + "] ?  [" + logInformation.completeLogFileName + "]");
 
             } else {
                 logInformation.logFileName = logParameter.getFileName();
@@ -637,7 +640,7 @@ public class LogAccess {
                 String handler = st.nextToken().trim();
                 String directory = logManager.getProperty(handler + ".directory");
                 String fileName = logManager.getProperty(handler + ".fileName");
-                logger.fine("LogAccess.getFilePathThomcat: getCanonicalPath :detect [" + handler + "] directory[" + directory + "], fileName[" + fileName + "]");
+                logger.info("getFilePathThomcat() >> LogAccess.getFilePathThomcat: getCanonicalPath :detect [" + handler + "] directory[" + directory + "], fileName[" + fileName + "]");
                 if (directory != null) {
                     File fileDirectory = new File(directory);
                     try {
@@ -645,7 +648,7 @@ public class LogAccess {
                             listPath.add(new LogRessource("(HAN)", fileDirectory));
 
                     } catch (IOException e) {
-                        logger.severe("LogAccess.getFilePathThomcat: getCanonicalPath Error  [" + fileDirectory.getAbsolutePath() + "] file[" + fileDirectory.getName() + "] error[" + e.toString() + "]");
+                        logger.severe("getFilePathThomcat() >> LogAccess.getFilePathThomcat: getCanonicalPath Error  [" + fileDirectory.getAbsolutePath() + "] file[" + fileDirectory.getName() + "] error[" + e.toString() + "]");
                     }
                 }
                 if (fileName != null) {
@@ -705,12 +708,12 @@ public class LogAccess {
                     listPath.add(new LogRessource("(CAT):", fileDirectory));
 
             } catch (IOException e) {
-                logger.severe("LogAccess.getFilePathThomcat: getCanonicalPath Error  [" + fileDirectory.getAbsolutePath() + "] file[" + fileDirectory.getName() + "] error[" + e.toString() + "]");
+                logger.severe("getFilePathThomcat() >> LogAccess.getFilePathThomcat: getCanonicalPath Error  [" + fileDirectory.getAbsolutePath() + "] file[" + fileDirectory.getName() + "] error[" + e.toString() + "]");
             }
 
         }
         logger.fine("LogAccess.getFilePathThomcat: getCanonicalPath : by env[catalina.home] logpath=" + logPathVariable);
-        logger.info("LogAccess.getFilePathThomcat: listPath=" + listPath);
+        logger.info("getFilePathThomcat() >> LogAccess.getFilePathThomcat: listPath=" + listPath);
         return;
 
     }

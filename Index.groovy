@@ -78,7 +78,7 @@ public class Index implements PageController {
 		try {
 			String requestParamJson= request.getParameter("paramjson");
 			String requestParamJsonSt = (requestParamJson==null ? null : java.net.URLDecoder.decode(requestParamJson, "UTF-8"));
-			// loggerCustomPage.fine("#### CustomPage:Groovy , requestParamJsonSt=["+requestParamJsonSt+"]" );
+			loggerCustomPage.fine("#### CustomPage:Groovy , requestParamJsonSt=["+requestParamJsonSt+"]" );
 			
 			
 			Index.ActionAnswer actionAnswer = Actions.doAction( request, requestParamJsonSt,  response, pageResourceProvider, pageContext );
@@ -99,6 +99,7 @@ public class Index implements PageController {
 				String jsonSt = JSONValue.toJSONString( actionAnswer.responseMap );
 				out.write( jsonSt );
 				// loggerCustomPage.fine("#### ##############################CustomPage: return json["+jsonSt+"]" );
+				loggerCustomPage.info("#### ##############################CustomPage: return json["+jsonSt+"]" );
 				out.flush();
 				out.close();
 				return;
@@ -184,7 +185,7 @@ public class Index implements PageController {
 				// indexContent= indexContent.replace("@_USER_LOCALE_@", request.getParameter("locale"));
 				// indexContent= indexContent.replace("@_PAGE_RESOURCE_@", pageResource);
 				indexContent= indexContent.replace("@_CURRENTTIMEMILIS_@", String.valueOf(System.currentTimeMillis()));
-        indexContent= indexContent.replace("@_PAGEDIRECTORY_@", pageDirectory.getAbsolutePath()) ;
+				indexContent= indexContent.replace("@_PAGEDIRECTORY_@", pageDirectory.getAbsolutePath()) ;
 
 				response.setCharacterEncoding("UTF-8");
 				response.addHeader("content-type", "text/html");
@@ -192,6 +193,7 @@ public class Index implements PageController {
 				PrintWriter out = response.getWriter();
 				out.print(indexContent);
 				out.flush();
+				loggerCustomPage.info("#### "+pageName+":Groovy -> runTheBonitaIndexDoGet, printer: " + out.toString() + " >> indexContent: " + indexContent.toString() );
 				out.close();
 		} catch (Exception e) {
 				e.printStackTrace();
