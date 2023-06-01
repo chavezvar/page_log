@@ -63,6 +63,7 @@ appCommand.controller('LogControler',
 		var self=this;
 		self.wait = true;
 		var d = new Date();
+		// $http.get( '?page=custompage_log&action=getFilesLog&t='+d.getTime(), this.getHttpConfig() )
 		$http.get( '?page=custompage_log&action=getFilesLog&t='+d.getTime(), this.getHttpConfig() )
 				.success( function ( jsonResult, statusHttp, headers, config ) {					
 					// connection is lost ?

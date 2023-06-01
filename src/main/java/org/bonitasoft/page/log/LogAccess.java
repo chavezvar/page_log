@@ -269,8 +269,8 @@ public class LogAccess {
                         // BonitaCloud  : bonita-2020-12-22-1.log.gz
                         //                  bonita.log 
                         //  !!!!
-                        if (name.startsWith("bonita-"))
-                            name = "bonita" + name.substring("bonita-".length());
+                        if (name.startsWith("bonita"))
+                            name = "bonita" + name.substring("bonita".length());
 
                         final StringTokenizer st = new StringTokenizer(name, ".");
                         @SuppressWarnings("unused")
