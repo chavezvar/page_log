@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.bonitasoft.custompage</groupId>
 	<artifactId>bonita-log</artifactId>
-	<version>2.9.0-RC230BH</version>
+	<version>2.9.0-RC23.809</version>
 	<properties>
 		<bonita.version>7.14.0</bonita.version>
 		<maven.compiler.source>11</maven.compiler.source>

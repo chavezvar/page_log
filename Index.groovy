@@ -78,17 +78,18 @@ public class Index implements PageController {
 		try {
 			String requestParamJson= request.getParameter("paramjson");
 			String requestParamJsonSt = (requestParamJson==null ? null : java.net.URLDecoder.decode(requestParamJson, "UTF-8"));
-			loggerCustomPage.fine("#### CustomPage:Groovy , requestParamJsonSt=["+requestParamJsonSt+"]" );
+			loggerCustomPage.info("#### CustomPage:Groovy > Index.groovy > doGet > requestParamJsonSt=["+requestParamJsonSt+"]" );
 			
 			
 			Index.ActionAnswer actionAnswer = Actions.doAction( request, requestParamJsonSt,  response, pageResourceProvider, pageContext );
+			//loggerCustomPage.info("#### CustomPage:Groovy actionAnswer.isManaged: " + actionAnswer.isManaged );
 			if (! actionAnswer.isManaged)
 			{
-				// loggerCustomPage.info("#### CustomPage:Groovy NoAction, return index.html" );
+				loggerCustomPage.info("#### CustomPage:Groovy NoAction, return index.html" );
 				runTheBonitaIndexDoGet( request, response,pageResourceProvider,pageContext);
 				return;
 			}
-			// loggerCustomPage.info("#### CustomPage:Groovy , ResponseMap="+actionAnswer.responseMap.size() );
+			loggerCustomPage.info("#### CustomPage:Groovy > Index.groovy > doGet > ResponseMap="+actionAnswer.responseMap.size() );
 			
 			if (actionAnswer.responseMap.size()>0)
 			{
@@ -98,8 +99,7 @@ public class Index implements PageController {
 				PrintWriter out = response.getWriter()
 				String jsonSt = JSONValue.toJSONString( actionAnswer.responseMap );
 				out.write( jsonSt );
-				// loggerCustomPage.fine("#### ##############################CustomPage: return json["+jsonSt+"]" );
-				loggerCustomPage.info("#### ##############################CustomPage: return json["+jsonSt+"]" );
+				loggerCustomPage.info("#### CustomPage:Groovy > Index.groovy > doGet > return json["+jsonSt+"]" );
 				out.flush();
 				out.close();
 				return;
@@ -110,7 +110,7 @@ public class Index implements PageController {
 			StringWriter sw = new StringWriter();
 			e.printStackTrace(new PrintWriter(sw));
 			String exceptionDetails = sw.toString();
-			loggerCustomPage.severe("#### "+pageName+":Groovy Exception ["+e.toString()+"] at "+exceptionDetails);
+			loggerCustomPage.severe("#### "+pageName+":Groovy > Index.groovy > doGet : Exception ["+e.toString()+"] at "+exceptionDetails);
 		}
 	}
 	
@@ -193,7 +193,8 @@ public class Index implements PageController {
 				PrintWriter out = response.getWriter();
 				out.print(indexContent);
 				out.flush();
-				loggerCustomPage.info("#### "+pageName+":Groovy -> runTheBonitaIndexDoGet, printer: " + out.toString() + " >> indexContent: " + indexContent.toString() );
+				//loggerCustomPage.info("#### "+pageName+":Groovy > Index.groovy > runTheBonitaIndexDoGet, printer: " + out.toString() + " >> indexContent: " + indexContent.toString() );
+				loggerCustomPage.info("#### "+pageName+":Groovy > Index.groovy > runTheBonitaIndexDoGet, printer: " + out.toString() + " >> indexContent: index.html"  );
 				out.close();
 		} catch (Exception e) {
 				e.printStackTrace();

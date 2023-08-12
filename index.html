@@ -6,477 +6,602 @@
 <!--[if IE 8]>
 <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js"> <!--<![endif]-->
+<html class="no-js">
+<!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <title>Log</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
- 
-  <link rel="stylesheet" href="css/animate.css" />
-  <link rel="stylesheet" href="3rd-party/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<title>Log</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
 
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="https://www.google.com/uds/?file=visualization&amp;v=1&amp;hl=fr&amp;packages=corechart&amp;async=2"></script>
-	<link type="text/css" href="https://www.google.com/uds/api/visualization/1.0/ff67c3772da186a412ae3231c32409e9/ui+fr.css" rel="stylesheet">
-	<script type="text/javascript" src="https://www.google.com/uds/api/visualization/1.0/ff67c3772da186a412ae3231c32409e9/format+fr,default+fr,ui+fr,corechart+fr.I.js"></script>
-	<link href="https://ajax.googleapis.com/ajax/static/modules/gviz/1.0/core/tooltip.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/animate.css" />
+<link rel="stylesheet" href="3rd-party/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/style.css">
 
-	<script src="3rd-party/jquery.min.js"></script>
-	<script src="3rd-party/angular.min.js"></script>
-	<script	src="3rd-party/angular-timer.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript"
+	src="https://www.google.com/uds/?file=visualization&amp;v=1&amp;hl=fr&amp;packages=corechart&amp;async=2"></script>
+<link type="text/css"
+	href="https://www.google.com/uds/api/visualization/1.0/ff67c3772da186a412ae3231c32409e9/ui+fr.css"
+	rel="stylesheet">
+<script type="text/javascript"
+	src="https://www.google.com/uds/api/visualization/1.0/ff67c3772da186a412ae3231c32409e9/format+fr,default+fr,ui+fr,corechart+fr.I.js"></script>
+<link
+	href="https://ajax.googleapis.com/ajax/static/modules/gviz/1.0/core/tooltip.css"
+	rel="stylesheet" type="text/css">
+
+<script src="3rd-party/jquery.min.js"></script>
+<script src="3rd-party/angular.min.js"></script>
+<script src="3rd-party/angular-timer.js"></script>
 
 <style>
 .Loading {
-    display: inline-block;
-    vertical-align: middle;
-    background-position: center;
-    background:no-repeat;
-    background-image: url('data:image/gif;base64,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');
-    width:20px;
-    height:20px;
-    margin-top:6px;
-    margin-right:7px;
+	display: inline-block;
+	vertical-align: middle;
+	background-position: center;
+	background: no-repeat;
+	background-image:
+		url('data:image/gif;base64,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');
+	width: 20px;
+	height: 20px;
+	margin-top: 6px;
+	margin-right: 7px;
 }
 </style>
 </head>
 <body ng-app="logmonitor">
 
 	<center>
-	<table>
-		<tr><td><h1>Logs on server</h1></td><td style="font-size:0.8em;vertical-align:bottom"> V2.9.0-RC230BH (June 2023 by CompuCom)</span></td>
-		</tr>
-	</table>
+		<table>
+			<tr>
+				<td><h1>Logs on server</h1></td>
+				<td style="font-size: 0.8em; vertical-align: bottom">
+					V2.9.0-RC23.809 (July 2023 by CompuCom)</span>
+				</td>
+			</tr>
+		</table>
 	</center>
 
 
-<div class="container-fluid" id="accordion">
-	<div class="row">
+	<div class="container-fluid" id="accordion">
+		<div class="row">
 
-		<div class="col-xs-12">
-			<div class="bs-component"  ng-controller="LogControler as ctrl">
-			
-				<ul class="nav nav-tabs"  ng-class="{'nav-stacked': vertical, 'nav-justified': justified}" style="border-bottom: 1px solid #c2c2c2;">
-					<li ng-class="{active: active, disabled: false}" 
-						id="form-tab" 
-						heading="logContent" 
-						active="true" 
-						title="Display the log file" 
-						select="ctrl.navbaractiv == 'logContent'" 
-						class="{{ctrl.getNavClass('logContent')}}" 
-						style="{{ctrl.getNavStyle('logContent')}}">
-						  <a ng-click="ctrl.navbaractiv = 'logContent';"   class="ng-binding">Log</a>
-					</li>
-					<li ng-class="{active: active, disabled: false}" id="form-tab" heading="logFile" active="true" title="Select log file" select="ctrl.navbaractiv == 'logFile'" class="{{ctrl.getNavClass('logFile')}}" style="{{ctrl.getNavStyle('logFile')}}">
-						  <a  ng-click="ctrl.navbaractiv='logFile'"  class="ng-binding">Select Log File</a>
-					</li>
+			<div class="col-xs-12">
+				<div class="bs-component" ng-controller="LogControler as ctrl">
+
+					<ul class="nav nav-tabs"
+						ng-class="{'nav-stacked': vertical, 'nav-justified': justified}"
+						style="border-bottom: 1px solid #c2c2c2;">
+						<li ng-class="{active: active, disabled: false}" id="form-tab"
+							heading="logContent" active="true" title="Display the log file"
+							select="ctrl.navbaractiv == 'logContent'"
+							class="{{ctrl.getNavClass('logContent')}}" style=""><a
+							ng-click="ctrl.navbaractiv = 'logContent';" class="ng-binding">Log</a>
+						</li>
+						<!-- -->
+						<li ng-class="{active: active, disabled: false}" id="form-tab"
+							heading="logFile" active="true" title="Select log file"
+							select="ctrl.navbaractiv == 'logFile'"
+							class="{{ctrl.getNavClass('logFile')}}" style=""><a
+							ng-click="ctrl.navbaractiv='logFile'" class="ng-binding">Select
+								Log File</a></li>
+						 
+						<!-- 
 					<li ng-class="{active: active, disabled: false}" id="form-tab" heading="ErrorAnalysis" active="true" title="Error Analysis" select="ctrl.navbaractiv == 'ErrorAnalysis'" class="{{ctrl.getNavClass('ErrorAnalysis')}}" style="{{ctrl.getNavStyle('ErrorAnalysis')}}">
 						  <a  ng-click="ctrl.navbaractiv='ErrorAnalysis'" class="ng-binding">Error Analysis</a>
-					</li>					
-					
-				</ul>
-			
-				<!--  ************************************************************  -->	
-				<!--  Log files		 										-->
-				<!--  ************************************************************  -->		
-				<!-- Keep it ng-show, else the file drop will not work ! -->	
-			
+					</li> -->
 
-				
-				<div class="panel panel-primary" ng-show="ctrl.navbaractiv=='logFile'">
-					Log Path : <span ng-repeat="path in ctrl.logpath track by $index">{{path}},&nbsp;&nbsp;</span><p>
-			
-					<div class="explanation">
-					All logs files found in the directory are display. Clicks on one to see its content.
-					</div>
-					
-					<span ng-show="ctrl.wait">
-						<span class="Loading" >.</span> Loading...
-					</span>
-					
-					<button ng-click="ctrl.getAllFilesLog()" class="btn btn-warning btn-xs">&nbsp;Refresh&nbsp;</button><p>
+					</ul>
 
-					<button ng-click="ctrl.getCurrentLog();ctrl.navbaractiv='logFile'" class="btn btn-info btn-xs" ng-disabled="ctrl.wait">Current log</button>
+					<!--  ************************************************************  -->
+					<!--  Log files		 										-->
+					<!--  ************************************************************  -->
+					<!-- Keep it ng-show, else the file drop will not work ! -->
 
-					<table class="table table-striped table-hover table-condensed" > <!--  style="background-color:#C49E71" -->
-					
-						<tr ng-repeat="(key, val) in ctrl.listfileslog track by $index">
-							<td><input type="checkbox" ng-model="ctrl.listfilesselected[ key ]" title="All files on the {{key}} are selected, then ask the download">&nbsp;&nbsp;{{key}}</input></td>
-							<td ng-repeat="logfile in val track by $index">
-								<div ng-if="logfile.isVisible">
-									<button ng-click="ctrl.getLog( logfile );ctrl.navbaractiv='logFile'" class="{{ctrl.getClassLogFile(logfile.fileName)}}" 
-										title="{{logfile.completeFileName}}"
-										ng-disabled="ctrl.wait">
-										&nbsp;{{logfile.fileName}} ({{logfile.fileSize}})&nbsp;</button>
-								</div>
-								<div ng-if=" ! logfile.isVisible">
-									&nbsp;{{logfile.fileName}} ({{logfile.fileSize}})&nbsp;
-								</div>
-								&nbsp;&nbsp;
-							
-							</td>
-						</tr>
-					</table>
-				
-					<table>
-					<tr>
-						<td style="padding: 20px">
-							<button ng-click="ctrl.getCurrentLog();ctrl.navbaractiv='logFile'" class="btn btn-info btn-xs">Current log</button>
-						</td>
-						<td style="padding: 20px">
-	 						<a  class="btn btn-primary" href="?page=custompage_log&action=zipanddownload&paramjson={{ctrl.getDowloadFile()}}">Zip and Download</a>	 						
-	 						</td>
-					</table>
-	
-					<div ng-bind-html="ctrl.getListEvents(ctrl.listevents )"></div>
-					
-					
-				</div>
-					
-				<!--  ************************************************************  -->	
-				<!--  Log Content		 										-->
-				<!--  ************************************************************  -->		
-				<!-- Keep it ng-show, else the file drop will not work ! -->
-				
-				<div class="panel panel-primary" ng-show="ctrl.navbaractiv=='logContent'">
-					
-					<a href="#" ng-click="ctrl.display.showSettings = ! ctrl.display.showSettings" style="text-decoration:none">					
-			  							<span ng-show="ctrl.display.showSettings" class="glyphicon glyphicon-chevron-down" style="font-size: 18px;"></span>
-		  			</a>
-					<a href="#" ng-click="ctrl.display.showSettings = ! ctrl.display.showSettings" style="text-decoration:none">					
-						<span ng-show="! ctrl.display.showSettings" class="glyphicon glyphicon-chevron-right"  style="font-size: 18px;"></span>
-					</a>	
-					<span ng-show="ctrl.wait">
-						<span class="Loading" >.</span> Loading...
-					</span>
-					Settings <div  class="btn btn-info btn-xs">{{ctrl.logFileName}}</div>
-						
-					
-					<table ng-if="ctrl.display.showSettings">
-					<tr>
-						<td style="padding:20px;vertical-align:top">
-							<div class="paneldd panel-primary">
-							 	<div class="panel-heading">
-							 		File
-							 	</div>
-							 	<div class="panel-body">
-								 	<span ng-show="ctrl.wait">
-										<span class="Loading" >.</span> Loading...
-									</span>
-									Log file : <div  class="btn btn-info btn-xs">{{ctrl.logFileName}}</div><p>
-				
-									<span ng-show="ctrl.wait"><span class="Loading" >.</span> Loading...</span>									
-									<button ng-click="ctrl.refresh()" class="btn btn-warning btn-xs" ng-disabled="ctrl.wait">Refresh</button>
-										
-									<table id='maintimer' class="maintimercls">
-									<tr>
-										<td style="padding:5px">	
-											<input type="checkbox" ng-model="ctrl.display.filterAutomaticRefresh" ng-change="ctrl.changeTimer()" ng-disabled="ctrl.wait">AutomaticRefresh </input>
-										</td>
-										<td style="padding:5px">
-											<input type="checkbox" ng-model="ctrl.display.filterTail" >Tail</input>
-										</td>
-									</tr>
+
+
+					<div class="panel panel-primary"
+						ng-show="ctrl.navbaractiv=='logFile'">
+						Log Path : <span ng-repeat="path in ctrl.logpath track by $index">{{path}},&nbsp;&nbsp;</span>
+						<p>
+						<div class="explanation">All logs files found in the
+							directory are display. Clicks on one to see its content.</div>
+
+						<span ng-show="ctrl.wait"> <span class="Loading">.</span>
+							Loading...
+						</span>
+
+						<button ng-click="ctrl.getAllFilesLog()"
+							class="btn btn-warning btn-xs">&nbsp;Refresh&nbsp;</button>
+						<p>
+
+							<button
+								ng-click="ctrl.getCurrentLog();ctrl.navbaractiv='logFile'"
+								class="btn btn-info btn-xs" ng-disabled="ctrl.wait">Current
+								log</button>
+						<table class="table table-striped table-hover table-condensed">
+							<!--  style="background-color:#C49E71" -->
+
+							<tr ng-repeat="(key, val) in ctrl.listfileslog track by $index">
+								<td><!-- -->
+									<input type="checkbox"
+									ng-model="ctrl.listfilesselected[ key ]"
+									title="All files on the {{key}} are selected, then ask the download">&nbsp;&nbsp;{{key}}</input> 
+									&#x2022;</td>
+								<td ng-repeat="logfile in val track by $index">
+									<table border=0>
+										<tr>
+											<td>
+												<div ng-if="logfile.isVisible">
+													<button
+														ng-click="ctrl.getLog( logfile );ctrl.navbaractiv='logFile'"
+														class="{{ctrl.getClassLogFile(logfile.fileName)}}"
+														title="{{logfile.completeFileName}}"
+														ng-disabled="ctrl.wait">
+														&nbsp;{{logfile.fileName}} ({{logfile.fileSize}})&nbsp;</button>
+												</div>
+
+												<div ng-if=" ! logfile.isVisible">
+													&nbsp;{{logfile.fileName}} ({{logfile.fileSize}})&nbsp;</div>
+											</td>
+										</tr>
 									</table>
-								</div>	
-							</div>							
-						</td>
-							
-						<td  style="padding:20px;vertical-align:top">
-							<div class="paneldd panel-info">
-							 	<div class="panel-heading">
-							 		Filter
-							 	</div>
-							 	<div class="panel-body">
-									<table>
-									<tr>
-										<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.filterError" ng-disabled="ctrl.display.brutResult">Only error & warm</input></td>
-										<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.analyze.enableAnalysisError" ng-disabled="ctrl.display.brutResult">Analyse Errors</input></td>
-										<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.filterShortDate" ng-disabled="ctrl.display.brutResult">Short Date</input></td>
-										<td>Filter text : <input type="input" ng-model="ctrl.display.filterText" ng-disabled="ctrl.display.brutResult"></input></td>												
-									</tr>
-									</table>
-									<span ng-show="ctrl.wait"><span class="Loading" >.</span> Loading...</span>									
-									<button ng-click="ctrl.refresh()" class="btn btn-warning btn-xs" ng-disabled="ctrl.wait">Refresh</button>
 
-									
-								</div>
-							</div>
-						</td>
-						<td  style="padding:20px;vertical-align:top">
-							<div class="paneldd panel-warning">
-							 	<div class="panel-heading">
-							 		Display
-							 	</div>
-							 	<div class="panel-body">						
-									<table>
-									<tr><td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.brutResult" ng-change="ctrl.refresh()">Brut</input></td>
-										<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.showLine">Line</input></td>
-										<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.showDate">Date</input></td>
-										<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.showLevel">Level</input></td>
-										<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.showContent">Content</input></td>
-										<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.showLocalisation">Localization</input></td>
-										<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.showCompact">Compact</input></td>						
-									</tr>
-									</table>
-								</div>
-							</div>
-						</tr>
-					
-					</table>
-					
-					
-					<!-- LOG DETAILS -->
-				 	
-							
-					<div>
-
-					<!-- pagination -->				 	
-					<table style="width:100%">
-					<tr >
-						<td style="padding: 10px;">Lines per page : 
-							<select ng-model="ctrl.display.numberperpage" ng-change="ctrl.refresh()">						
-								<option value="100">100</option>
-								<option value="200">200</option>
-								<option value="500">500</option>
-								<option value="1000">1000</option>
-								<option value="2000">2000</option>
-							</select>
-							&nbsp;<br>
-							<small>
-							Number of log lines : {{ctrl.display.totalLines | number}} / Number of physical lines {{ctrl.display.totalLinesFiles| number}}
-							</small>
-						</td><td style="padding: 30px;text-align: center;">
-							<pagination ng-model="ctrl.display.pagenumber" 
-								total-items="ctrl.display.totalLines" 
-								items-per-page="ctrl.display.numberperpage"
-								ng-click="ctrl.refresh()"
-								ng-disabled="ctrl.wait"
-								boundary-links="true" 
-								max-size="10"
-								boundary-link-numbers="true"
-								rotate="true"
-								force-ellipses="true">
-							</pagination><br>														
-						</td>
-					</tr>					
-					</table>
-					
-					<!-- Display -->	
-										
-					<table class="table table-striped table-hover table-condensed" style="width:100%"> <!--  style="background-color:#C49E71" -->
-						<tr>
-							<th ng-show="ctrl.display.brutResult">Log</th>
-	
-							<th ng-show="! ctrl.display.brutResult && ctrl.display.showLine" >#</th>
-							<th ng-show="! ctrl.display.brutResult && ctrl.display.showDate">Date</th>
-							<th ng-show="! ctrl.display.brutResult && ctrl.display.showLevel">Level</th>
-							<th ng-show="! ctrl.display.brutResult && ctrl.display.showContent">Content</th>
-							<th ng-show="! ctrl.display.brutResult && ctrl.display.showLocalisation">Localization</th>
-	          
-						</tr>
-						<tr ng-repeat="logitem in ctrl.getPageResult() track by $index">
-							<td ng-show=" ctrl.display.brutResult" style="{{ctrl.getLineStyle(logitem)}}">{{logitem.l}}</td>
-	
-							<td ng-show="! ctrl.display.brutResult && ctrl.display.showLine" style="{{ctrl.getLineStyle(logitem)}}">{{logitem.lin}}</td>
-							<td ng-show="! ctrl.display.brutResult && ctrl.display.showDate" style="{{ctrl.getLineStyle(logitem)}}">{{logitem.dte}}</td>
-							<td ng-show="! ctrl.display.brutResult && ctrl.display.showLevel"  style="{{ctrl.getLineStyle(logitem)}}">{{logitem.lvl}}</td>
-							<td ng-show="! ctrl.display.brutResult && ctrl.display.showContent" style="{{ctrl.getLineStyle(logitem)}}">
-								<!-- <textarea ng-model="logitem.cnt" readonly cols="60%"></textarea> -->
-								<p style="word-break: break-all"">{{logitem.cnt}}</p>
-							</td>
-							<td ng-show="! ctrl.display.brutResult && ctrl.display.showLocalisation" style="{{ctrl.getLineStyle(logitem)}}">{{logitem.loc}}</td>
-	   					</tr>
-					</table>
-					
-					<!-- pagination -->				 	
-					<table style="width:100%">
-					<tr >
-						<td style="padding: 10px;">Lines per page : 
-							<select ng-model="ctrl.display.numberperpage" ng-change="ctrl.refresh()">						
-								<option value="100">100</option>
-								<option value="200">200</option>
-								<option value="500">500</option>
-								<option value="1000">1000</option>
-								<option value="2000">2000</option>
-							</select>
-							&nbsp;<br>
-							<small>
-							Number of log lines : {{ctrl.display.totalLines | number}} / Number of physical lines {{ctrl.display.totalLinesFiles| number}}
-							</small>
-						</td><td style="padding: 30px;text-align: center;">
-							<pagination ng-model="ctrl.display.pagenumber" 
-								total-items="ctrl.display.totalLines" 
-								items-per-page="ctrl.display.numberperpage"
-								ng-click="ctrl.refresh()"
-								ng-disabled="ctrl.wait"
-								boundary-links="true" 
-								max-size="10"
-								boundary-link-numbers="true"
-								rotate="true"
-								force-ellipses="true">
-							</pagination><br>														
-						</td>
-					</tr>					
-					</table>
-					
-					
-					</div>	
-					<span ng-show="ctrl.wait"><span class="Loading" >.</span> Loading...</span>									
-					<button ng-click="ctrl.refresh()" class="btn btn-warning btn-xs">Refresh</button>
-				</div>
-				
-				
-				<!--  ************************************************************  -->	
-				<!--  Error Analysis		 										-->
-				<!--  ************************************************************  -->		
-				<!-- Keep it ng-show, else the file drop will not work ! -->
-					
-				<div class="panel panel-primary" ng-show="ctrl.navbaractiv=='ErrorAnalysis'">
-					<table>
-						<tr><td colspan="6"><div  class="btn btn-info btn-xs">{{ctrl.logFileName}}</div></td>
-						<tr>
-							<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.analyze.enableAnalysisError" ng-disabled="ctrl.display.brutResult">Analyze Errors</input></td>
-							<td style="padding:5px"><input type="checkbox" ng-model="ctrl.display.analyze.analysisCompactBasedOnError">Analyze compact based on error type</input></td>				
-							<td style="padding:5px"><select ng-model="ctrl.display.analyze.perimeter" >						
-															<option value="ERROR">Error</option>
-															<option value="WARNING">Error + Warning</option>
-													</select> </td>
-							<td style="padding:5px"><select ng-model="ctrl.display.analyze.policy" >						
-														<option value="ALL">All errors</option>
-														<option value="TOP10">Top 10</option>
-														<option value="TOP100">Top 100</option>
-													</select></td>
-							<td style="padding:5px"><button ng-click="ctrl.refreshAnalyse()" class="btn btn-warning btn-xs" ng-disabled="ctrl.wait">Refresh Analyze</button></td>	
-							<td style="padding:5px"><span ng-show="ctrl.wait">
-														<span class="Loading" >.</span> Loading...</span>
-													</td>
-						</tr>
-					</table>									
-					<!-- CHART TIMELINE -->
-					bob
-					<table width="100%">
-						<tr>
-						<td width="80%">
-							<div google-chart chart="analysisTimeLine" style="height: 200px; width: 100%; position: relative; "></div>
-
-						</td>
-						<td>
-							<div class="panel panel-primary">
-							 	<div class="panel-heading">
-							 		Statistics
-							 	</div>
-							 	<div class="panel-body">
-							 		<table width="100%">
-							 			<tr><td>Errors detected:</td><td style="text-align: right"> {{ctrl.analysisSynthese.nbErrorsDetected}}</td><td></td></tr>
-								 		<tr><td>Different:</td><td style="text-align: right"> {{ctrl.analysisSynthese.nbDifferentErrorsDetected}}</td><td></td></tr>
-								  		<tr><td>Logs items:</td><td style="text-align: right"> {{ctrl.analysisSynthese.nbLogItemsSt}}</td><td></td></tr>
-								  		<tr><td>Lines:</td><td style="text-align: right"> {{ctrl.analysisSynthese.nbTotalLinesSt}}</td><td></td></tr>
-								  		<tr><td>Analyzed in:</td><td style="text-align: right"> {{ctrl.analysisSynthese.timeAnalysisInSec}}</td><td>&nbsp;s</td></tr>
-								  </table>
-								</div>
-							</div>
-						</td>
-					</tr>
-					</table>
-							
-					
-					<!-- SYNTHESE -->
-					<div class="alert alert-danger" ng-show="{{ctrl.analysisSynthese.tooMuchErrors}}">Too much <b>different</b> errors arrived, only {{ctrl.analysisSynthese.maxErrors}} are saved</div>
-					<div class="alert alert-info" ng-show="ctrl.analysisSynthese.tooMuchErrors">
-								 Too much errors</div>
-					
-					<table class="table table-striped table-hover table-condensed" > <!--  style="background-color:#C49E71" -->
-						<tr>
-							<th>Occurence</th>
-							<th>Process Name(version)</th>
-							<th>Task-Flownode</th>
-							<th>Connector</th>
-						</tr>
-						<tbody ng-repeat="syntheseitem in ctrl.analysisSynthese.synthese track by $index">
-							<tr ng-show="syntheseitem.type == 'byprocess'">
-								<td >
-									<a href="#" ng-click="syntheseitem.showdetail = ! syntheseitem.showdetail" style="text-decoration:none">					
-			  							<span ng-show="syntheseitem.showdetail" class="glyphicon glyphicon-chevron-down" style="font-size: 18px;"></span>
-		  							</a>
-									<a href="#" ng-click="syntheseitem.showdetail = ! syntheseitem.showdetail" style="text-decoration:none">					
-										<span ng-show="! syntheseitem.showdetail" class="glyphicon glyphicon-chevron-right"  style="font-size: 18px;"></span>
-									</a>								
-								{{syntheseitem.count}}</td>
-								<td>{{syntheseitem.processname}} ({{syntheseitem.processversion}})</td>
-								<td>{{syntheseitem.flownodename}}</td>
-								<td>{{syntheseitem.connectorName}}</td>
+								</td>
 							</tr>
+						</table>
+
+						<table>
 							<tr>
-								<td ng-show="syntheseitem.type == 'bycontent'">
-									<a href="#" ng-click="syntheseitem.showdetail = ! syntheseitem.showdetail" style="text-decoration:none">					
-			  							<span ng-show="syntheseitem.showdetail" class="glyphicon glyphicon-chevron-down" style="font-size: 18px;"></span>
-		  							</a>
-									<a href="#" ng-click="syntheseitem.showdetail = ! syntheseitem.showdetail" style="text-decoration:none">					
-										<span ng-show="! syntheseitem.showdetail" class="glyphicon glyphicon-chevron-right"  style="font-size: 18px;"></span>
-									</a>								
-								{{syntheseitem.count}}</td>
-								<td colspan="3">{{syntheseitem.header}}</td>
-							</tr>
-							<tr ng-show="syntheseitem.showdetail && ctrl.display.brutResult">
-								<td></td>
-								<td colspan="3" style="{{ctrl.getLineStyle(syntheseitem.logitem)}}">{{syntheseitem.logitem.l}}</td>
-							</tr>
-							<tr ng-show="syntheseitem.showdetail && ! ctrl.display.brutResult">
-								<td></td>
-								<td colspan="3">
-									<table><tr>
-										<th >Line</th>
-										<th >Date</th>
-										<th >Level</th>
-										<th >Content</th>
-										<th >Localization</th>
-				          			</tr>
-									<tr>
-										<td style="{{ctrl.getLineStyle(syntheseitem.logitem)}};font-size: 10px">{{syntheseitem.logitem.lin}}</td>
-										<td style="{{ctrl.getLineStyle(syntheseitem.logitem)}};font-size: 10px">{{syntheseitem.logitem.dte}}</td>
-										<td style="{{ctrl.getLineStyle(syntheseitem.logitem)}};font-size: 10px">{{syntheseitem.logitem.lvl}}</td>
-										<td style="{{ctrl.getLineStyle(syntheseitem.logitem)}};font-size: 10px">{{syntheseitem.logitem.cnt}}</td>
-										<td style="{{ctrl.getLineStyle(syntheseitem.logitem)}};font-size: 10px">{{syntheseitem.logitem.loc}}</td>
-									</tr>
-									</table>	   			
-							</tr>
-						</tbody>
-					</table>
-	
-					<span ng-show="ctrl.wait"><span class="Loading" >.</span> Loading...</span>									
-					<button ng-click="ctrl.refresh()" class="btn btn-warning btn-xs">Refresh</button>
+								<td style="padding: 20px"><!-- 
+									<button
+										ng-click="ctrl.getCurrentLog();ctrl.navbaractiv='logFile'"
+										class="btn btn-info btn-xs">Current log</button> -->
+								</td>
+								<td style="padding: 20px"><a class="btn btn-primary"
+									href="?page=custompage_log&action=zipanddownload&paramjson={{ctrl.getDowloadFile()}}">Zip
+										and Download</a></td>
+										 
+						</table>
 
-					
-				
-					
-					
+						<div ng-bind-html="ctrl.getListEvents(ctrl.listevents )"></div>
+
+
+					</div>
+
+					<!--  ************************************************************  -->
+					<!--  Log Content		 										-->
+					<!--  ************************************************************  -->
+					<!-- Keep it ng-show, else the file drop will not work ! -->
+
+					<div class="panel panel-primary"
+						ng-show="ctrl.navbaractiv=='logContent'">
+
+						<a href="#"
+							ng-click="ctrl.display.showSettings = ! ctrl.display.showSettings"
+							style="text-decoration: none"> <span
+							ng-show="ctrl.display.showSettings"
+							class="glyphicon glyphicon-chevron-down" style="font-size: 18px;"></span>
+						</a> <a href="#"
+							ng-click="ctrl.display.showSettings = ! ctrl.display.showSettings"
+							style="text-decoration: none"> <span
+							ng-show="! ctrl.display.showSettings"
+							class="glyphicon glyphicon-chevron-right"
+							style="font-size: 18px;"></span>
+						</a> <span ng-show="ctrl.wait"> <span class="Loading">.</span>
+							Loading...
+						</span> Settings
+						<div class="btn btn-info btn-xs">{{ctrl.logFileName}}</div>
+						
+						
+
+
+						<table ng-if="ctrl.display.showSettings">
+							<tr>
+								<td style="padding: 20px; vertical-align: top">
+									<div class="paneldd panel-primary">
+										<div class="panel-heading">File</div>
+										<div class="panel-body">
+											<span ng-show="ctrl.wait"> <span class="Loading">.</span>
+												Loading...
+											</span> Log file :
+											<div class="btn btn-info btn-xs">{{ctrl.logFileName}}</div>
+											<p>
+
+												<span ng-show="ctrl.wait"><span class="Loading">.</span>
+													Loading...</span>
+												<button ng-click="ctrl.refresh()"
+													class="btn btn-warning btn-xs" ng-disabled="ctrl.wait">Refresh</button>
+											<table id='maintimer' class="maintimercls">
+												<tr>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.filterAutomaticRefresh"
+														ng-change="ctrl.changeTimer()" ng-disabled="ctrl.wait">AutomaticRefresh
+														</input></td>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.filterTail">Tail</input></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</td>
+
+								<td style="padding: 20px; vertical-align: top">
+									<div class="paneldd panel-info">
+										<div class="panel-heading">Filter</div>
+										<div class="panel-body">
+											<table>
+												<tr>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.filterError"
+														ng-disabled="ctrl.display.brutResult">Only error &
+														warm</input></td>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.analyze.enableAnalysisError"
+														ng-disabled="ctrl.display.brutResult">Analyse
+														Errors</input></td>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.filterShortDate"
+														ng-disabled="ctrl.display.brutResult">Short Date</input></td>
+													<td>Filter text : <input type="input"
+														ng-model="ctrl.display.filterText"
+														ng-disabled="ctrl.display.brutResult"></input></td>
+												</tr>
+											</table>
+											<span ng-show="ctrl.wait"><span class="Loading">.</span>
+												Loading...</span>
+											<button ng-click="ctrl.refresh()"
+												class="btn btn-warning btn-xs" ng-disabled="ctrl.wait">Refresh</button>
+
+
+										</div>
+									</div>
+								</td>
+								<td style="padding: 20px; vertical-align: top">
+									<div class="paneldd panel-warning">
+										<div class="panel-heading">Display</div>
+										<div class="panel-body">
+											<table>
+												<tr>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.brutResult"
+														ng-change="ctrl.refresh()">Brut</input></td>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.showLine">Line</input></td>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.showDate">Date</input></td>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.showLevel">Level</input></td>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.showContent">Content</input></td>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.showLocalisation">Localization</input></td>
+													<td style="padding: 5px"><input type="checkbox"
+														ng-model="ctrl.display.showCompact">Compact</input></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+							</tr>
+
+						</table>
+
+
+						<!-- LOG DETAILS -->
+
+
+						<div>
+
+							<!-- pagination -->
+							<table style="width: 100%">
+								<tr>
+									<td style="padding: 10px;">Lines per page : <select
+										ng-model="ctrl.display.numberperpage"
+										ng-change="ctrl.refresh()">
+											<option value="100">100</option>
+											<option value="200">200</option>
+											<option value="500">500</option>
+											<option value="1000">1000</option>
+											<option value="2000">2000</option>
+									</select> &nbsp;<br> <small> Number of log lines :
+											{{ctrl.display.totalLines | number}} / Number of physical
+											lines {{ctrl.display.totalLinesFiles| number}} </small>
+									</td>
+									<td style="padding: 30px; text-align: center;"><pagination
+											ng-model="ctrl.display.pagenumber"
+											total-items="ctrl.display.totalLines"
+											items-per-page="ctrl.display.numberperpage"
+											ng-click="ctrl.refresh()" ng-disabled="ctrl.wait"
+											boundary-links="true" max-size="10"
+											boundary-link-numbers="true" rotate="true"
+											force-ellipses="true"> </pagination><br></td>
+								</tr>
+							</table>
+
+							<!-- Display -->
+
+							<table class="table table-striped table-hover table-condensed"
+								style="width: 100%">
+								<!--  style="background-color:#C49E71" -->
+								<tr>
+									<th ng-show="ctrl.display.brutResult">Log</th>
+
+									<th
+										ng-show="! ctrl.display.brutResult && ctrl.display.showLine">#</th>
+									<th
+										ng-show="! ctrl.display.brutResult && ctrl.display.showDate">Date</th>
+									<th
+										ng-show="! ctrl.display.brutResult && ctrl.display.showLevel">Level</th>
+									<th
+										ng-show="! ctrl.display.brutResult && ctrl.display.showContent">Content</th>
+									<th
+										ng-show="! ctrl.display.brutResult && ctrl.display.showLocalisation">Localization</th>
+
+								</tr>
+								<tr ng-repeat="logitem in ctrl.getPageResult() track by $index">
+									<td ng-show=" ctrl.display.brutResult" style="">{{logitem.l}}</td>
+
+									<td
+										ng-show="! ctrl.display.brutResult && ctrl.display.showLine"
+										style="">{{logitem.lin}}</td>
+									<td
+										ng-show="! ctrl.display.brutResult && ctrl.display.showDate"
+										style="">{{logitem.dte}}</td>
+									<td
+										ng-show="! ctrl.display.brutResult && ctrl.display.showLevel"
+										style="">{{logitem.lvl}}</td>
+									<td
+										ng-show="! ctrl.display.brutResult && ctrl.display.showContent"
+										style="">
+										<!-- <textarea ng-model="logitem.cnt" readonly cols="60%"></textarea> -->
+										<p style="word-break: break-all"">{{logitem.cnt}}</p>
+									</td>
+									<td
+										ng-show="! ctrl.display.brutResult && ctrl.display.showLocalisation"
+										style="">{{logitem.loc}}</td>
+								</tr>
+							</table>
+
+							<!-- pagination -->
+							<table style="width: 100%">
+								<tr>
+									<td style="padding: 10px;">Lines per page : <select
+										ng-model="ctrl.display.numberperpage"
+										ng-change="ctrl.refresh()">
+											<option value="100">100</option>
+											<option value="200">200</option>
+											<option value="500">500</option>
+											<option value="1000">1000</option>
+											<option value="2000">2000</option>
+									</select> &nbsp;<br> <small> Number of log lines :
+											{{ctrl.display.totalLines | number}} / Number of physical
+											lines {{ctrl.display.totalLinesFiles| number}} </small>
+									</td>
+									<td style="padding: 30px; text-align: center;"><pagination
+											ng-model="ctrl.display.pagenumber"
+											total-items="ctrl.display.totalLines"
+											items-per-page="ctrl.display.numberperpage"
+											ng-click="ctrl.refresh()" ng-disabled="ctrl.wait"
+											boundary-links="true" max-size="10"
+											boundary-link-numbers="true" rotate="true"
+											force-ellipses="true"> </pagination><br></td>
+								</tr>
+							</table>
+
+
+						</div>
+						<span ng-show="ctrl.wait"><span class="Loading">.</span>
+							Loading...</span>
+						<button ng-click="ctrl.refresh()" class="btn btn-warning btn-xs">Refresh</button>
+					</div>
+
+
+					<!--  ************************************************************  -->
+					<!--  Error Analysis		 										-->
+					<!--  ************************************************************  -->
+					<!-- Keep it ng-show, else the file drop will not work ! -->
+
+					<div class="panel panel-primary"
+						ng-show="ctrl.navbaractiv=='ErrorAnalysis'">
+						<table>
+							<tr>
+								<td colspan="6"><div class="btn btn-info btn-xs">{{ctrl.logFileName}}</div></td>
+							<tr>
+								<td style="padding: 5px"><input type="checkbox"
+									ng-model="ctrl.display.analyze.enableAnalysisError"
+									ng-disabled="ctrl.display.brutResult">Analyze Errors</input></td>
+								<td style="padding: 5px"><input type="checkbox"
+									ng-model="ctrl.display.analyze.analysisCompactBasedOnError">Analyze
+									compact based on error type</input></td>
+								<td style="padding: 5px"><select
+									ng-model="ctrl.display.analyze.perimeter">
+										<option value="ERROR">Error</option>
+										<option value="WARNING">Error + Warning</option>
+								</select></td>
+								<td style="padding: 5px"><select
+									ng-model="ctrl.display.analyze.policy">
+										<option value="ALL">All errors</option>
+										<option value="TOP10">Top 10</option>
+										<option value="TOP100">Top 100</option>
+								</select></td>
+								<td style="padding: 5px"><button
+										ng-click="ctrl.refreshAnalyse()"
+										class="btn btn-warning btn-xs" ng-disabled="ctrl.wait">Refresh
+										Analyze</button></td>
+								<td style="padding: 5px"><span ng-show="ctrl.wait">
+										<span class="Loading">.</span> Loading...
+								</span></td>
+							</tr>
+						</table>
+						<!-- CHART TIMELINE -->
+						bob
+						<table width="100%">
+							<tr>
+								<td width="80%">
+									<div google-chart chart="analysisTimeLine"
+										style="height: 200px; width: 100%; position: relative;"></div>
+
+								</td>
+								<td>
+									<div class="panel panel-primary">
+										<div class="panel-heading">Statistics</div>
+										<div class="panel-body">
+											<table width="100%">
+												<tr>
+													<td>Errors detected:</td>
+													<td style="text-align: right">
+														{{ctrl.analysisSynthese.nbErrorsDetected}}</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>Different:</td>
+													<td style="text-align: right">
+														{{ctrl.analysisSynthese.nbDifferentErrorsDetected}}</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>Logs items:</td>
+													<td style="text-align: right">
+														{{ctrl.analysisSynthese.nbLogItemsSt}}</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>Lines:</td>
+													<td style="text-align: right">
+														{{ctrl.analysisSynthese.nbTotalLinesSt}}</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>Analyzed in:</td>
+													<td style="text-align: right">
+														{{ctrl.analysisSynthese.timeAnalysisInSec}}</td>
+													<td>&nbsp;s</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+
+						<!-- SYNTHESE -->
+						<div class="alert alert-danger"
+							ng-show="{{ctrl.analysisSynthese.tooMuchErrors}}">
+							Too much <b>different</b> errors arrived, only
+							{{ctrl.analysisSynthese.maxErrors}} are saved
+						</div>
+						<div class="alert alert-info"
+							ng-show="ctrl.analysisSynthese.tooMuchErrors">Too much
+							errors</div>
+
+						<table class="table table-striped table-hover table-condensed">
+							<!--  style="background-color:#C49E71" -->
+							<tr>
+								<th>Occurence</th>
+								<th>Process Name(version)</th>
+								<th>Task-Flownode</th>
+								<th>Connector</th>
+							</tr>
+							<tbody
+								ng-repeat="syntheseitem in ctrl.analysisSynthese.synthese track by $index">
+								<tr ng-show="syntheseitem.type == 'byprocess'">
+									<td><a href="#"
+										ng-click="syntheseitem.showdetail = ! syntheseitem.showdetail"
+										style="text-decoration: none"> <span
+											ng-show="syntheseitem.showdetail"
+											class="glyphicon glyphicon-chevron-down"
+											style="font-size: 18px;"></span>
+									</a> <a href="#"
+										ng-click="syntheseitem.showdetail = ! syntheseitem.showdetail"
+										style="text-decoration: none"> <span
+											ng-show="! syntheseitem.showdetail"
+											class="glyphicon glyphicon-chevron-right"
+											style="font-size: 18px;"></span>
+									</a> {{syntheseitem.count}}</td>
+									<td>{{syntheseitem.processname}}
+										({{syntheseitem.processversion}})</td>
+									<td>{{syntheseitem.flownodename}}</td>
+									<td>{{syntheseitem.connectorName}}</td>
+								</tr>
+								<tr>
+									<td ng-show="syntheseitem.type == 'bycontent'"><a href="#"
+										ng-click="syntheseitem.showdetail = ! syntheseitem.showdetail"
+										style="text-decoration: none"> <span
+											ng-show="syntheseitem.showdetail"
+											class="glyphicon glyphicon-chevron-down"
+											style="font-size: 18px;"></span>
+									</a> <a href="#"
+										ng-click="syntheseitem.showdetail = ! syntheseitem.showdetail"
+										style="text-decoration: none"> <span
+											ng-show="! syntheseitem.showdetail"
+											class="glyphicon glyphicon-chevron-right"
+											style="font-size: 18px;"></span>
+									</a> {{syntheseitem.count}}</td>
+									<td colspan="3">{{syntheseitem.header}}</td>
+								</tr>
+								<tr ng-show="syntheseitem.showdetail && ctrl.display.brutResult">
+									<td></td>
+									<td colspan="3" style="">{{syntheseitem.logitem.l}}</td>
+								</tr>
+								<tr
+									ng-show="syntheseitem.showdetail && ! ctrl.display.brutResult">
+									<td></td>
+									<td colspan="3">
+										<table>
+											<tr>
+												<th>Line</th>
+												<th>Date</th>
+												<th>Level</th>
+												<th>Content</th>
+												<th>Localization</th>
+											</tr>
+											<tr>
+												<td style="">{{syntheseitem.logitem.lin}}</td>
+												<td style="">{{syntheseitem.logitem.dte}}</td>
+												<td style="">{{syntheseitem.logitem.lvl}}</td>
+												<td style="">{{syntheseitem.logitem.cnt}}</td>
+												<td style="">{{syntheseitem.logitem.loc}}</td>
+											</tr>
+										</table>
+								</tr>
+							</tbody>
+						</table>
+
+						<span ng-show="ctrl.wait"><span class="Loading">.</span>
+							Loading...</span>
+						<button ng-click="ctrl.refresh()" class="btn btn-warning btn-xs">Refresh</button>
+
+
+
+
+
+					</div>
 				</div>
 			</div>
+
 		</div>
-
 	</div>
-</div>
 
 
 
-<!-- Third party dependencies -->
+	<!-- Third party dependencies -->
 
 
-<script src="3rd-party/angular-resource.min.js"></script>
-<script src="3rd-party/angular-cookies.min.js"></script>
+	<script src="3rd-party/angular-resource.min.js"></script>
+	<script src="3rd-party/angular-cookies.min.js"></script>
 
-<script src="3rd-party/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script src="3rd-party/angular-bootstrap-tpls.min.js"></script>
-<script src="3rd-party/angular-file-upload.js"></script>
-<script src="3rd-party/ng-google-chart.js"></script>
-<script src="3rd-party/angular-sanitize.min.js"></script>
+	<script src="3rd-party/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+	<script src="3rd-party/angular-bootstrap-tpls.min.js"></script>
+	<script src="3rd-party/angular-file-upload.js"></script>
+	<script src="3rd-party/ng-google-chart.js"></script>
+	<script src="3rd-party/angular-sanitize.min.js"></script>
 
 
-<!-- Application dependencies -->
-<script src="pageResource?page=custompage_log&location=logmonitor.js&t=@_CURRENTTIMEMILIS_@"></script>
+	<!-- Application dependencies -->
+	<script
+		src="pageResource?page=custompage_log&location=logmonitor.js&t=@_CURRENTTIMEMILIS_@"></script>
 
 
 </body>

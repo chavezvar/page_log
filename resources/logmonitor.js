@@ -238,8 +238,8 @@ appCommand.controller('LogControler',
 			}
 		if (listToDowload.length==0)
 		{
-			
-			return;			
+			listToDowload.listdaysdownload.push(this.logFileName);
+			//return;			
 		}
 
 		var json= encodeURI( angular.toJson(listToDowload, true));
